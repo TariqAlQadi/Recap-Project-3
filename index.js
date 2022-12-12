@@ -1,3 +1,5 @@
+import { createCharacterCard } from "./components/card/card.js"
+
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
@@ -38,11 +40,10 @@ async function fetchCharacters() {
     } else {
       const rickAndMortyData = await response.json();
       console.log(rickAndMortyData.results);
-
-      
-      //rickAndMortyData.results.forEach((result) => {
-      // renderElement(Card(result));
-      //});
+      cardContainer.innerHTML = "";
+      rickAndMortyData.results.forEach((result) => {
+      createCharacterCard(result);
+      });
     }
   } catch (error) {
     console.error(error);
