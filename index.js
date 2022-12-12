@@ -16,8 +16,11 @@ let page = 1;
 const searchQuery = "";
 
 nextButton.addEventListener("click", () => {
-  if (page <= 42){page++
-  fetchCharacters();}
+  if (page < 42){
+    page++
+    fetchCharacters();
+}
+return 
 })
 
 prevButton.addEventListener("click", () => {
