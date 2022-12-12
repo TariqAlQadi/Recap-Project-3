@@ -1,4 +1,7 @@
-import { search } from "./components/search-bar/search-bar.js";
+import {
+  search,
+  fetchSearchedCards,
+} from "./components/search-bar/search-bar.js";
 import { createCharacterCard } from "./components/card/card.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
@@ -13,9 +16,9 @@ const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
 // const maxPage = 42;
-let page = 1;
+export let page = 1;
 const searchQuery = "";
-
+search();
 nextButton.addEventListener("click", () => {
   if (page < 42) {
     page++;
@@ -38,12 +41,10 @@ firstfetchCharacters();
 async function firstfetchCharacters() {
   try {
     const response = await fetch(`https://rickandmortyapi.com/api/character/`);
-    console.log(response);
     if (!response.ok) {
       console.log("Response not okay!");
     } else {
       const rickAndMortyData = await response.json();
-      console.log(rickAndMortyData.results);
       cardContainer.innerHTML = "";
       rickAndMortyData.results.forEach((result) => {
         createCharacterCard(result);
