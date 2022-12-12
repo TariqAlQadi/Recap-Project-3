@@ -1,5 +1,6 @@
 export function createCharacterCard(character) {
   const cardContainer = document.querySelector('[data-js="card-container"]');
+  cardContainer.innerHTML = "";
   const card = document.createElement("li");
   card.setAttribute("class", "card");
   cardContainer.append(card);
