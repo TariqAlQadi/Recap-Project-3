@@ -1,7 +1,4 @@
-import {
-  search,
-  fetchSearchedCards,
-} from "./components/search-bar/search-bar.js";
+import { search, searchQuery2 } from "./components/search-bar/search-bar.js";
 import { createCharacterCard } from "./components/card/card.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
@@ -15,31 +12,29 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
-// const maxPage = 42;
+let maxPage = 42;
 export let page = 1;
-const searchQuery = "";
 search();
 
-function pager(data) {
-  let pageMax = data.length;
+nextButton.addEventListener("click", async () => {
+  if (page < maxPage) {
+    page++;
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/?name=${searchQuery2}&page=${page}`
+    );
+    fetchCharacters(response);
+  }
+});
+prevButton.addEventListener("click", async () => {
+  if (page > 1) {
+    page--;
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/?name=${searchQuery2}&page=${page}`
+    );
+    fetchCharacters(response);
+  }
+});
 
-  nextButton.addEventListener("click", () => {
-    if (page < pageMax) {
-      page++;
-      fetchCharacters();
-    }
-    return;
-  });
-
-  prevButton.addEventListener("click", () => {
-    if (page > 1) {
-      page--;
-      fetchCharacters();
-    }
-    return;
-  });
-}
-pager(searchQuery);
 //First Fetch
 //firstfetchCharacters();
 
@@ -65,7 +60,7 @@ const test2 = await fetch(`https://rickandmortyapi.com/api/character?page=4`);
 fetchCharacters(allCharacters);
 
 //Fetch
-async function fetchCharacters(data) {
+export async function fetchCharacters(data) {
   try {
     //const response = data;
     if (!data.ok) {
@@ -76,6 +71,7 @@ async function fetchCharacters(data) {
       cardData.results.forEach((result) => {
         createCharacterCard(result);
         pagination.textContent = `${page} / ${cardData.info.pages}`;
+        maxPage = cardData.info.pages;
       });
     }
   } catch (error) {
