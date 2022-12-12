@@ -29,6 +29,28 @@ prevButton.addEventListener("click", () => {
   return
 })
 
+//First Fetch
+firstfetchCharacters
+
+async function firstfetchCharacters() {
+  try {
+    const response = await fetch(`https://rickandmortyapi.com/api/character/`);
+    console.log(response)
+    if (!response.ok) {
+      console.log("Response not okay!");
+    } else {
+      const rickAndMortyData = await response.json();
+      console.log(rickAndMortyData.results);
+      cardContainer.innerHTML = "";
+      rickAndMortyData.results.forEach((result) => {
+      createCharacterCard(result);
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 //Fetch
 
 async function fetchCharacters() {
