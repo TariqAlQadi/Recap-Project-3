@@ -2,11 +2,8 @@ import { search, searchQuery2 } from "./components/search-bar/search-bar.js";
 import { createCharacterCard } from "./components/card/card.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
-const searchBarContainer = document.querySelector(
-  '[data-js="search-bar-container"]'
-);
 
-const navigation = document.querySelector('[data-js="navigation"]');
+// const navigation = document.querySelector('[data-js="navigation"]');
 const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
@@ -35,34 +32,12 @@ prevButton.addEventListener("click", async () => {
   }
 });
 
-//First Fetch
-//firstfetchCharacters();
-
-async function firstfetchCharacters() {
-  try {
-    const response = await fetch(`https://rickandmortyapi.com/api/character/`);
-    if (!response.ok) {
-      console.log("Response not okay!");
-    } else {
-      const rickAndMortyData = await response.json();
-      cardContainer.innerHTML = "";
-      rickAndMortyData.results.forEach((result) => {
-        createCharacterCard(result);
-        pagination.textContent = `${page} / ${rickAndMortyData.info.pages}`;
-      });
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
 const allCharacters = await fetch(`https://rickandmortyapi.com/api/character/`);
-const test2 = await fetch(`https://rickandmortyapi.com/api/character?page=4`);
 fetchCharacters(allCharacters);
 
 //Fetch
 export async function fetchCharacters(data) {
   try {
-    //const response = data;
     if (!data.ok) {
       console.log("Response not okay!");
     } else {
@@ -78,27 +53,3 @@ export async function fetchCharacters(data) {
     console.error(error);
   }
 }
-
-/*
-async function fetchCharacters() {
-  try {
-    const response = await fetch(
-      `https://rickandmortyapi.com/api/character?page=${page}`
-    );
-    console.log(response);
-    if (!response.ok) {
-      console.log("Response not okay!");
-    } else {
-      const rickAndMortyData = await response.json();
-      console.log(rickAndMortyData.results);
-      cardContainer.innerHTML = "";
-      rickAndMortyData.results.forEach((result) => {
-        createCharacterCard(result);
-        pagination.textContent = `${page} / ${rickAndMortyData.info.pages}`;
-      });
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-*/
