@@ -30,7 +30,7 @@ prevButton.addEventListener("click", () => {
 })
 
 //First Fetch
-firstfetchCharacters
+firstfetchCharacters()
 
 async function firstfetchCharacters() {
   try {
