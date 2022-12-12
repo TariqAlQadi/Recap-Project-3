@@ -43,6 +43,7 @@ export function createCharacterCard(character) {
 
   const cardInfoOccurences = document.createElement("dt");
   cardInfoOccurences.setAttribute("class", "card__info-title");
+  cardInfoOccurences.textContent = "Occurrences";
   cardDl.append(cardInfoOccurences);
 
   const occurences = document.createElement("dd");
