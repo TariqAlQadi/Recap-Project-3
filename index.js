@@ -1,4 +1,3 @@
-
 import { search } from "./components/search-bar/search-bar.js";
 import { createCharacterCard } from "./components/card/card.js";
 
@@ -13,34 +12,33 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
-const maxPage = 42;
+// const maxPage = 42;
 let page = 1;
 const searchQuery = "";
 
 nextButton.addEventListener("click", () => {
-  if (page < 42){
-    page++
+  if (page < 42) {
+    page++;
     fetchCharacters();
-}
-return 
-})
+  }
+  return;
+});
 
 prevButton.addEventListener("click", () => {
-  
   if (page > 1) {
     page--;
     fetchCharacters();
   }
-  return
-})
+  return;
+});
 
 //First Fetch
-firstfetchCharacters()
+firstfetchCharacters();
 
 async function firstfetchCharacters() {
   try {
     const response = await fetch(`https://rickandmortyapi.com/api/character/`);
-    console.log(response)
+    console.log(response);
     if (!response.ok) {
       console.log("Response not okay!");
     } else {
@@ -48,7 +46,8 @@ async function firstfetchCharacters() {
       console.log(rickAndMortyData.results);
       cardContainer.innerHTML = "";
       rickAndMortyData.results.forEach((result) => {
-      createCharacterCard(result);
+        createCharacterCard(result);
+        pagination.textContent = `${page} / ${rickAndMortyData.info.pages}`;
       });
     }
   } catch (error) {
@@ -60,8 +59,10 @@ async function firstfetchCharacters() {
 
 async function fetchCharacters() {
   try {
-    const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`);
-    console.log(response)
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character?page=${page}`
+    );
+    console.log(response);
     if (!response.ok) {
       console.log("Response not okay!");
     } else {
@@ -69,7 +70,8 @@ async function fetchCharacters() {
       console.log(rickAndMortyData.results);
       cardContainer.innerHTML = "";
       rickAndMortyData.results.forEach((result) => {
-      createCharacterCard(result);
+        createCharacterCard(result);
+        pagination.textContent = `${page} / ${rickAndMortyData.info.pages}`;
       });
     }
   } catch (error) {
