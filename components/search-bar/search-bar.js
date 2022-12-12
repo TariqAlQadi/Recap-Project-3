@@ -16,13 +16,14 @@ export function search() {
     console.log(searchQuery);
 
     fetchSearchedCards(searchQuery);
+    event.target.reset();
   });
 }
 
-export async function fetchSearchedCards(searchQuery) {
+export async function fetchSearchedCards(searchQuery, page) {
   console.log("hello");
   const response = await fetch(
-    `https://rickandmortyapi.com/api/character/?name=${searchQuery}`
+    `https://rickandmortyapi.com/api/character/?name=${searchQuery}&page=${page}`
   );
   console.log(response);
   const searchedCards = await response.json();
@@ -41,6 +42,7 @@ export async function fetchSearchedCards(searchQuery) {
   } catch (error) {
     console.error("Error");
   }
+  pager();
 }
 /*.filter((card) => {
         return .includes(searchQuery);
